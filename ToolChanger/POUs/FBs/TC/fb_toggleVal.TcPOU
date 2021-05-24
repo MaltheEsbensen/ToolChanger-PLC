@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_toggleVal" Id="{1c1b06d7-6701-4c33-a16d-cce0c0c76527}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_toggleVal
+VAR_INPUT
+	IN: BOOL;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF IN = TRUE AND TCin.ProxUp THEN
+	TCout.valvepush := TRUE;
+	TCout.valvepull := FALSE;
+ELSIF IN = TRUE AND not TCin.ProxUp THEN
+	TCout.valvepull := TRUE;
+	TCout.valvepush := FALSE;
+END_IF
+
+(*
+IF IN = TRUE AND TCin.ProxUp THEN
+	TCout.valve := FALSE;
+ELSIF IN = TRUE AND TCin.ProxDwn THEN
+	TCout.valve := TRUE;
+END_IF*)]]></ST>
+    </Implementation>
+    <LineIds Name="fb_toggleVal">
+      <LineId Id="16" Count="1" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="27" Count="1" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="44" Count="2" />
+      <LineId Id="41" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

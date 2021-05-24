@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_engageDockAll" Id="{973d2a69-afaf-40bb-91ee-ab5a5260bcd5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_engageDockAll
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	cleanin: fb_cleanIn;
+	cleanout: fb_cleanOut;
+	step: INT;
+	clop: fb_dsopenclose;
+	dock: fb_dock;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE step OF
+	0:
+		IF Allengage.cleanOutd THEN
+			cntrlstate.cleanout := FALSE;
+			cleanout(done := cntrlstate.cleanout);
+			IF cntrlstate.cleanout THEN
+				Allengage.cleanOutd := FALSE;
+				Allengage.cleanInd := TRUE;
+				step := 1;
+			END_IF
+		END_IF
+		
+	1:
+		IF Allengage.cleanInd THEN
+			cntrlstate.cleanin := FALSE;
+			cleanin(done := cntrlstate.cleanin);
+			IF cntrlstate.cleanin THEN
+				Allengage.cleanInd := FALSE;
+				Allengage.stepper := TRUE;
+				step := 2;
+			END_IF
+		END_IF
+		
+	2: 
+		IF Allengage.stepper THEN
+			DSin.open := TRUE;
+			clop();
+			IF NOT DSin.open THEN
+				step := 3;
+				Allengage.dock := TRUE;
+				Allengage.stepper := FALSE;
+			END_IF
+		END_IF
+	
+	3:
+		IF Allengage.dock THEN
+			cntrlstate.dock := FALSE;
+			dock(toolID := DSin.ID);
+			IF cntrlstate.dock THEN
+				Allengage.dock := FALSE;
+				Allengage.stepper := TRUE;
+				step := 4;
+			END_IF
+		END_IF
+	
+	4:
+		IF Allengage.stepper THEN
+			DSin.close := TRUE;
+			clop();
+			IF NOT DSin.close THEN
+				step := 5;
+				Allengage.stepper := FALSE;
+			END_IF
+		END_IF
+		
+	5:
+		engage.alldock := FALSE;
+		step := 0;
+END_CASE
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_engageDockAll">
+      <LineId Id="23" Count="1" />
+      <LineId Id="84" Count="7" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="92" Count="1" />
+      <LineId Id="71" Count="4" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="76" Count="1" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="34" Count="28" />
+      <LineId Id="64" Count="6" />
+      <LineId Id="22" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

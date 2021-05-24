@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <GVL Name="CLEANout" Id="{e3f58c5f-7e5d-4c1e-aac9-8e2dda3fc696}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	// Inside cleaner valve
+	inValve AT %Q*: BOOL;
+	// Outside cleaner valve
+	outValve AT %Q*: BOOL;
+	
+	// ADD COVER SERVO TO SOLUTION
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

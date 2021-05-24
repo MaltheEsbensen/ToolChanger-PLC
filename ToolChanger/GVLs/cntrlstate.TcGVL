@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <GVL Name="cntrlstate" Id="{34f3c4e2-a539-46e2-95c1-633033bf4a94}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	undock: BOOL;
+	dock: BOOL;
+	cleanin: BOOL;
+	cleanout: BOOL;
+	piston_moving: BOOL;
+	cover_moving: BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

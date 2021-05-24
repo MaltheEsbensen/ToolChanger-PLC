@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_NozCheck" Id="{9f02d96b-c438-4084-b288-2a692a57898e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_NozCheck
+VAR_INPUT
+	inID: INT;
+END_VAR
+VAR_OUTPUT
+	good: BOOL;
+	done: BOOL;
+END_VAR
+VAR
+	outID: INT;
+END_VAR
+
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// example (ID1 = 0, ID2 = 1, ID3 = 1)=011 => outID = 3
+good := FALSE;
+done := FALSE;
+IF TCin.ID1 = FALSE AND TCin.ID2 = FALSE AND TCin.ID3 = FALSE THEN
+	outID := 0;
+ELSIF TCin.ID1 = FALSE AND TCin.ID2 = FALSE AND TCin.ID3 = TRUE THEN
+	outID := 1;
+ELSIF TCin.ID1 = FALSE AND TCin.ID2 = TRUE AND TCin.ID3 = FALSE THEN
+	outID := 2;	
+ELSIF TCin.ID1 = FALSE AND TCin.ID2 = TRUE AND TCin.ID3 = TRUE THEN
+	outID := 3;
+ELSIF TCin.ID1 = TRUE AND TCin.ID2 = FALSE AND TCin.ID3 = FALSE THEN
+	outID := 4;
+ELSIF TCin.ID1 = TRUE AND TCin.ID2 = FALSE AND TCin.ID3 = TRUE THEN
+	outID := 5;	
+ELSIF TCin.ID1 = TRUE AND TCin.ID2 = TRUE AND TCin.ID3 = FALSE THEN
+	outID := 6;	
+ELSIF TCin.ID1 = TRUE AND TCin.ID2 = TRUE AND TCin.ID3 = TRUE THEN
+	outID := 7;	
+END_IF
+
+IF inID = outID THEN
+	good := TRUE;
+	done := TRUE;
+ELSIF inID <> outID THEN
+	good := FALSE;
+	done := TRUE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="fb_NozCheck">
+      <LineId Id="10" Count="0" />
+      <LineId Id="52" Count="1" />
+      <LineId Id="11" Count="10" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="23" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="48" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

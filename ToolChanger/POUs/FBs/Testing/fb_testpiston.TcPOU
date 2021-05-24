@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_testpiston" Id="{c5a1407f-0b88-4b83-8264-7b98061fcada}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_testpiston
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	step: INT;
+	wait1: TON;
+	wait2: TON;
+	unlock: INT;
+	failUp: INT;
+	failDown: INT;
+	lock: INT;
+	wait: INT;
+	totalFail: INT;
+	wait3: TON;
+	wait4: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (unlock > 50 AND lock > 50) OR totalFail <> 0 THEN
+	ADSLOGDINT( msgCtrlMask := ADSLOG_MSGTYPE_HINT OR ADSLOG_MSGTYPE_MSGBOX, 
+                    msgFmtStr := 'test Msg: Test DONE! Number of fails: %d', dintArg:= totalFail);
+	ADSLOGDINT( msgCtrlMask := ADSLOG_MSGTYPE_HINT OR ADSLOG_MSGTYPE_MSGBOX, 
+                    msgFmtStr := '%d Unlock fails', dintArg:= failUp);
+	ADSLOGDINT( msgCtrlMask := ADSLOG_MSGTYPE_HINT OR ADSLOG_MSGTYPE_MSGBOX, 
+                    msgFmtStr := '%d Lock fails', dintArg:= failDown);
+	wait1.IN := FALSE;
+	wait2.IN := FALSE;
+	unlock := 0;
+	lock := 0;
+	totalFail := 0;
+	failDown := 0;
+	failUp := 0;
+	step := 1000;
+END_IF
+
+CASE step OF
+	0: 
+		step := 10;
+	10:
+		wait3(IN := TRUE, PT := T#1000MS);
+		IF tcin.ProxUp THEN
+			IF wait3.Q THEN
+				wait2.IN := FALSE;
+				wait3.IN := FALSE;
+				tcout.valvePush := TRUE;
+				tcout.valvePull := FALSE;
+				wait1(IN := TRUE, PT := T#10S);
+				step := 20;
+				unlock := unlock + 1;
+			END_IF
+		ELSIF wait2.Q THEN
+			step := 991;
+		END_IF
+		
+	20:
+		wait4(IN := TRUE, PT := T#1000MS);
+		IF tcin.ProxDwn THEN
+			IF wait4.Q THEN
+				wait4.IN := FALSE;
+				wait1.IN := FALSE;
+				tcout.valvePull := TRUE;
+				tcout.valvePush := FALSE;
+				wait2(IN := TRUE, PT := T#10S);
+				step := 10;
+				lock := lock + 1;
+			END_IF
+		ELSIF wait1.Q THEN
+			step := 992;
+		END_IF
+		
+	991:
+		failUp := failUp + 1;
+		step := 999;
+		
+	992:
+		failDown := failDown + 1;
+		step := 999;
+		
+	999:
+		totalFail := totalFail + 1;
+		wait1.IN := FALSE;
+		wait2.IN := FALSE;
+		step := 1001;
+	
+	1000:
+		step := 0;
+		
+	1001:
+		
+END_CASE
+wait4();
+wait3();
+wait2();
+wait1();]]></ST>
+    </Implementation>
+    <LineIds Name="fb_testpiston">
+      <LineId Id="63" Count="0" />
+      <LineId Id="75" Count="1" />
+      <LineId Id="88" Count="3" />
+      <LineId Id="70" Count="3" />
+      <LineId Id="85" Count="2" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="44" Count="1" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="125" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="130" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="133" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="34" Count="2" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="37" Count="4" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="24" Count="2" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="77" Count="2" />
+      <LineId Id="82" Count="2" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="136" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_cleanOut" Id="{df3468c6-7987-4e48-bea1-5d4800384bdc}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_cleanOut
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	step: INT;
+	wait: TON;
+END_VAR
+
+VAR_IN_OUT
+	done: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE step OF
+	0:
+		IF NOT done THEN
+			cleanout.outValve := TRUE;
+			wait(IN := TRUE, PT := T#5S);
+			step := 1;
+		END_IF
+	1:
+		IF wait.Q THEN
+			wait.IN := FALSE;
+			cleanout.outValve := FALSE;
+			step := 2;
+		END_IF
+		
+	2: 
+		step := 0;
+		done := TRUE;
+	
+END_CASE
+wait();]]></ST>
+    </Implementation>
+    <LineIds Name="fb_cleanOut">
+      <LineId Id="10" Count="18" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

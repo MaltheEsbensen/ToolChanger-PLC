@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_cleanIn" Id="{b2bc3242-131e-4da2-9489-b8575e111113}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_cleanIn
+VAR_INPUT
+	IN: BOOL;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	wait: TON;
+	step: INT;
+END_VAR
+
+VAR_IN_OUT
+	done: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE step OF
+	0:
+		IF NOT done THEN
+			cleanout.inValve := TRUE;
+			wait(IN := TRUE, PT := T#5S);
+			step := 1;
+		END_IF
+	1:
+		IF wait.Q THEN
+			wait.IN := FALSE;
+			cleanout.inValve := FALSE;
+			step := 2;
+		END_IF
+		
+	2: 
+		step := 0;
+		done := TRUE;
+	
+END_CASE
+wait();]]></ST>
+    </Implementation>
+    <LineIds Name="fb_cleanIn">
+      <LineId Id="26" Count="0" />
+      <LineId Id="32" Count="1" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="39" Count="3" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="59" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_engageUndockAll" Id="{64f8b081-bc4b-4875-b35b-36179f8cc1e5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_engageUndockAll
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	step: INT;
+	cleanin: fb_cleanIn;
+	cleanout: fb_cleanOut;
+	undock: fb_undock;
+	dock: fb_dock;
+	opcl: fb_dsopenclose;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE step OF
+	0:
+		IF Allengage.cleanOutu THEN
+			cntrlstate.cleanout := FALSE;
+			cleanout(done := cntrlstate.cleanout);
+			IF cntrlstate.cleanout THEN
+				Allengage.cleanOutu := FALSE;
+				Allengage.stepper := TRUE;
+				step := 1;
+			END_IF
+		END_IF
+	1: 
+		IF Allengage.stepper THEN
+			DSin.open := TRUE;
+			opcl();
+			IF NOT DSin.open THEN
+				step := 2;
+				Allengage.undock := TRUE;
+				Allengage.stepper := FALSE;
+			END_IF
+		END_IF
+	
+	2:
+		IF Allengage.undock THEN
+			cntrlstate.undock := FALSE;
+			undock();
+			IF cntrlstate.undock THEN
+				Allengage.undock := FALSE;
+				Allengage.stepper := TRUE;
+				step := 3;
+			END_IF
+		END_IF
+	
+	3:
+		IF Allengage.stepper THEN
+			DSin.close := TRUE;
+			opcl();
+			IF NOT DSin.close THEN
+				step := 4;
+				Allengage.stepper := FALSE;
+			END_IF
+		END_IF
+		
+	4:
+		engage.allundock := FALSE;
+		step := 0;
+END_CASE
+]]></ST>
+    </Implementation>
+    <LineIds Name="fb_engageUndockAll">
+      <LineId Id="44" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="64" Count="4" />
+      <LineId Id="70" Count="1" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="62" Count="1" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="58" Count="2" />
+      <LineId Id="72" Count="4" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="80" Count="1" />
+      <LineId Id="85" Count="4" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="116" Count="3" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

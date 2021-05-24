@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_switchclkcheck" Id="{14220d4d-3f79-4e58-af89-d39b101e9d41}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_switchclkcheck
+VAR_OUTPUT
+	swXgood: BOOL := TRUE;
+END_VAR
+VAR
+	prev_clk: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*This function block sends an alternating signal at a frequency of 100 Hz, and checks whether 
+it has been altered from previous check*)
+
+(*
+TCout.SwCLK := NOT TCout.SwCLK;	
+IF prev_clk = TCout.SwCLK THEN
+	swXgood := FALSE;
+ELSE 
+	swXgood := TRUE;
+END_IF
+prev_clk := TCout.SwCLK; //only for testing => when doing physical setup => prev_clk := TCin.CollisionSW; 
+*)
+
+IF TCin.CollisionSW = FALSE THEN
+	// STOP
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="fb_switchclkcheck">
+      <LineId Id="23" Count="1" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="27" Count="1" />
+      <LineId Id="30" Count="2" />
+      <LineId Id="34" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="47" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

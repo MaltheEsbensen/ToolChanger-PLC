@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_dock" Id="{4de2de9f-8db5-4335-b6d0-1f80a9af3410}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_dock
+VAR_INPUT
+	toolID: int;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	step: INT;
+	Lock: fb_toggleVal;
+	IDcheck: fb_NozCheck;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE step OF
+	0:
+		IF tcin.ProxUp THEN
+			Lock(IN:= TRUE);
+			Lock.IN := FALSE;
+			cntrlstate.piston_moving := TRUE;
+			step := 1;
+		END_IF
+	1: 
+		IF NOT tcin.ProxUp AND NOT tcin.ProxUp THEN
+			IDcheck(inID := toolID);
+			cntrlstate.piston_moving := FALSE;
+			IF IDcheck.good THEN
+				cntrlstate.dock := TRUE;
+				step := 0;
+			ELSIF NOT IDcheck.good THEN
+				step := 99;
+			END_IF
+			
+		END_IF
+	99:
+		//ERROR HANDLING
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="fb_dock">
+      <LineId Id="10" Count="4" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="15" Count="3" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="32" Count="2" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="21" Count="2" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

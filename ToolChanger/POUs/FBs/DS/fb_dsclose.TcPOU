@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_dsclose" Id="{d8770a9a-cfd2-486e-9b6d-c436ea867c61}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_dsclose
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	ax1: AXIS_REF;
+	McJog: MC_Jog;
+	McPower: MC_Power;
+	McReset: MC_Reset;
+	McStop: MC_Stop;
+	iState: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[McPower(Axis := ax1, Enable := TRUE, Enable_Positive := TRUE, Enable_Negative := TRUE);
+McReset(Axis := ax1);
+McJog(Axis := ax1);
+CASE iState OF 
+	0: 
+		iState := 10;
+	
+	10:
+		McReset(Axis:= ax1, Execute := TRUE);
+		IF McReset.Done THEN
+			iState := 20;
+		ELSIF McReset.Error THEN
+			iState := 999;
+		END_IF
+	
+	20:
+		IF McPower.Status THEN
+			iState := 30;
+		END_IF
+		
+	30:
+		McJog(Axis := ax1, JogBackwards := NOT DSin.endStopFrnt);
+		IF DSin.endStopFrnt THEN
+			engage.stepperbck := FALSE;
+		END_IF
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="fb_dsclose">
+      <LineId Id="17" Count="24" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

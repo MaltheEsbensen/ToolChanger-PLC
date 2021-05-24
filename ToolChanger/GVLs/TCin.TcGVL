@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <GVL Name="TCin" Id="{464f9b69-475d-49df-90e3-c1228e510958}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	// Upper inductive sensor
+	ProxUp AT %I*: BOOL;
+	// Lower inductive sensor
+	ProxDwn AT %I*: BOOL;
+	// Safety limit switch
+	CollisionSW AT %I*: BOOL;
+	// Most significant bit
+	ID1 AT %I*: BOOL := TRUE;
+	// Middle bit
+	ID2 AT %I*: BOOL;
+	// Least significant bit
+	ID3 AT %I*: BOOL;
+	toolOn : BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <GlobalTextList Name="GlobalTextList" Id="{b34e8388-a000-4325-b546-b961cc130287}">
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="GlobalTextListObject">
+          <l n="TextList" t="ArrayList" cet="TextListRow">
+            <o>
+              <v n="TextID">"736"</v>
+              <v n="TextDefault">"Activate"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"606"</v>
+              <v n="TextDefault">"Clean Inside"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"691"</v>
+              <v n="TextDefault">"Clean Outside"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"249"</v>
+              <v n="TextDefault">"Cleaning station"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"84"</v>
+              <v n="TextDefault">"Close Docking Station Cover"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"649"</v>
+              <v n="TextDefault">"Dock Sequence"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"364"</v>
+              <v n="TextDefault">"Docking"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"545"</v>
+              <v n="TextDefault">"Docking Maneuvers"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"151"</v>
+              <v n="TextDefault">"Docking Station"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"146"</v>
+              <v n="TextDefault">"Inductive sensors"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"175"</v>
+              <v n="TextDefault">"Inductive Sensors"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"731"</v>
+              <v n="TextDefault">"Manual Control"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"625"</v>
+              <v n="TextDefault">"Nozzle ID"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"685"</v>
+              <v n="TextDefault">"Open Docking Station Cover"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"631"</v>
+              <v n="TextDefault">"Safety"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"374"</v>
+              <v n="TextDefault">"Safety Switch"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"608"</v>
+              <v n="TextDefault">"Start"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"734"</v>
+              <v n="TextDefault">"Tool Changer"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"582"</v>
+              <v n="TextDefault">"Undock Sequence"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"367"</v>
+              <v n="TextDefault">"Undocking"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"709"</v>
+              <v n="TextDefault">"Valves"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+          </l>
+          <l n="Languages" t="ArrayList" />
+          <v n="GuidInit">{2606b211-abff-474a-a41c-ad97fe5af35d}</v>
+          <v n="GuidReInit">{93f9108a-aae0-493a-ba17-9c1de6875012}</v>
+          <v n="GuidExitX">{68cf62be-c22d-48ea-8150-19064624dc28}</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="ArrayList">System.Collections.ArrayList</Type>
+        <Type n="GlobalTextListObject">{63784cbb-9ba0-45e6-9d69-babf3f040511}</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="String">System.String</Type>
+        <Type n="TextListRow">{53da1be7-ad25-47c3-b0e8-e26286dad2e0}</Type>
+      </TypeList>
+    </XmlArchive>
+  </GlobalTextList>
+</TcPlcObject>

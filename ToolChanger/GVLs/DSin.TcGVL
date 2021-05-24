@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <GVL Name="DSin" Id="{e3cf18f3-7a5d-4c3e-a78c-71b37e9cde6a}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	// Cover switch back
+	endStopBck AT %I*: BOOL;
+	// Cover switch front
+	endStopFrnt AT %I*: BOOL;
+	// stepper engagement
+	open : BOOL := FALSE;
+	close : BOOL := FALSE;
+	ID: INT;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

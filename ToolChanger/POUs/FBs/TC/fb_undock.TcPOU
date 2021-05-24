@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="fb_undock" Id="{fe6299cd-40da-4124-8f05-58cfe31f1879}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fb_undock
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	step: INT;
+	unLock: fb_toggleVal;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE step OF
+	0:
+		IF NOT tcin.ProxUp THEN
+			unLock(IN:= TRUE);
+			unLock.IN := FALSE;
+			cntrlstate.piston_moving := TRUE;
+			step := 1;
+		END_IF
+	1: 
+		IF tcin.ProxUp AND tcin.ProxUp THEN
+			 cntrlstate.undock := TRUE;
+			 cntrlstate.piston_moving := FALSE;
+			 step := 0;
+		END_IF
+	99:
+		//ERROR HANDLING
+END_CASE
+unLock();
+(*
+CASE step OF
+	0:
+		IF tcin.ProxDwn THEN
+			unLock(IN:= TRUE);
+			unLock.IN := FALSE;
+			cntrlstate.piston_moving := TRUE;
+			step := 1;
+		END_IF
+	1: 
+		IF tcin.ProxUp AND NOT tcin.ProxDwn THEN
+			 cntrlstate.undock := TRUE;
+			 cntrlstate.piston_moving := FALSE;
+			 step := 0;
+		END_IF
+	99:
+		//ERROR HANDLING
+END_CASE
+unLock();*)]]></ST>
+    </Implementation>
+    <LineIds Name="fb_undock">
+      <LineId Id="9" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="28" Count="1" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="44" Count="17" />
+      <LineId Id="43" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

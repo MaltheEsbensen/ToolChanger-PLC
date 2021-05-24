@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <GVL Name="TCout" Id="{95f062bb-38af-4dbc-868d-1e6948169531}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	// Dual valve control
+	valvepush AT %Q*: BOOL := TRUE;
+	valvepull AT %Q*: BOOL;
+	// Limit switch clock signal
+	SwCLK AT %Q*: BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

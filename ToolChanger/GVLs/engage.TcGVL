@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <GVL Name="engage" Id="{23237c38-4b59-4c1d-914f-2ebc625f7c1b}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	cleanIn: BOOL := FALSE;
+	cleanOut: BOOL := FALSE;
+	undock: BOOL := FALSE;
+	dock: BOOL := FALSE;
+	stepopen: BOOL := FALSE;
+	stepclose: BOOL := FALSE;
+	stepper : BOOL := FALSE;
+	allundock: BOOL :=FALSE;
+	alldock: BOOL :=FALSE;
+	pisttest : BOOL := FALSE;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
